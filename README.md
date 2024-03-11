@@ -18,7 +18,7 @@ Recreate a mini GPT model from 0 to 1, 能够在医学领域具备较强的领�
 
 同时，为了给大家节省数据预处理的时间，本项目开源了经过ChatGLM2-6B的分词器处理后的预训练语料，共计**634亿Tokens**的数据量，链接如下：[Baby-llama2-chinese Corpus](https://pan.baidu.com/s/18o4gF-G68qfgOGWQXgAg3g) 提取码：6unr。将下载好的数据放到./data目录下即可。
 
-【考虑到作者所持有机子的局限性（4张3090），目前634亿Tokens的预训练语料+300M参数量的模型已经是本人预训练的极限-注：没有使用DeepSpeed、Megatron等分布式训练架构】
+
 ### 预训练语料预处理
 数据预处理采取GPT的通用做法，对语料进行提前分词，对一个样本做完分词后在末尾加上一个结束符号`<eos>`，与下一个样本区分开。然后将所有的训练语料拼接成一个数组（np.uint16）以.bin二进制格式存储到磁盘上。如果语料过大，避免内存溢出，可以选择mmap格式。
 ```bash
@@ -28,11 +28,7 @@ python data_process.py
 ```
 ### 预训练
 ```bash
-#考虑到预训练的运行时间非常久，需要采用程序后台运行的措施，本项目提供一种常用的程序后台运行的操作：
-screen -S ambrose    #(创建新的名称为ambrose的screen)
-screen -r ambrose    #(进入名称为ambrose的screen)
-#在该screen下执行预训练代码，如果你有四张卡，则nproc_per_node设置为4
-torchrun --standalone --nproc_per_node=4 pretrain.py
+sh script/pretrain.sh
 #运行结束后，预训练模型会保存在‘out/pretrain’文件夹中
 ```
    
@@ -84,10 +80,7 @@ python sft_data_process.py
 ```
 ### 全面微调（Full Fine-tuning）
 ```bash
-#微调所需时间一般较短，如需要后台运行，本项目提供一种常用的程序后台运行的操作：
-screen -S ambrose    #(创建新的名称为ambrose的screen)
-screen -r ambrose    #(进入名称为ambrose的screen)
 #在该screen下执行微调代码
-python sft.py
+sh script/sft.py
 #运行结束后，SFT模型会保存在‘out/sft’文件夹中
 ```
