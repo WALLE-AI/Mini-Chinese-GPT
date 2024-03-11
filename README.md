@@ -15,8 +15,7 @@ Recreate a mini GPT model from 0 to 1, 能够在医学领域具备较强的领�
    | C4_zh：[百度网盘 part1](https://pan.baidu.com/s/18O2Tj_PPB718K8gnaWrWUQ) 提取码：zv4r；[百度网盘 part2](https://pan.baidu.com/s/11PTgtUfFXvpNkOige9Iw4w) 提取码：sb83；[百度网盘 part3](https://pan.baidu.com/s/1248QfTS8QHPojYW-0fd5jQ) 提取码：l89d | C4是可用的最大语言数据集之一，收集了来自互联网上超过3.65亿个域的超过1560亿个token。C4_zh是其中的一部分 |
    | WuDaoCorpora：[智源研究院BAAI：WuDaoCorpora Text文本预训练数据集](https://data.baai.ac.cn/details/WuDaoCorporaText)                                                                                                                       | 中文悟道开源的200G数据                                                 |
    | shibing624/medical：[shibing624/medical](https://huggingface.co/datasets/shibing624/medical/tree/main)                                                                                                          | 源自shibing624的一部分医学领域的预训练数据    
-   | SkyPile-150B：[SkyPile-150B](https://www.modelscope.cn/datasets/modelscope/SkyPile-150B/summary)                                                                                                          | SkyPile-150B是一个全面、大规模的中文数据集，专门为大型语言模型的预训练而设计。它来源于广泛的可供公众访问的中国互联网网页。严格的过滤、广泛的重复数据消除和彻底的敏感数据过滤已被用于确保其质量。此外，我们还使用了诸如fastText和BERT之类的高级工具来过滤低质量的数据。
-SkyPile-150B数据集的公共访问部分包括大约2.33亿个独特的网页，每个网页平均包含1000多个汉字。总的来说，该数据集包括大约1500亿个令牌和620G的纯文本数据。                                   |
+   | SkyPile-150B：[SkyPile-150B](https://www.modelscope.cn/datasets/modelscope/SkyPile-150B/summary)                                                                                                          | SkyPile-150B是一个全面、大规模的中文数据集，专门为大型语言模型的预训练而设计。它来源于广泛的可供公众访问的中国互联网网页。严格的过滤、广泛的重复数据消除和彻底的敏感数据过滤已被用于确保其质量。此外，我们还使用了诸如fastText和BERT之类的高级工具来过滤低质量的数据。SkyPile-150B数据集的公共访问部分包括大约2.33亿个独特的网页，每个网页平均包含1000多个汉字。总的来说，该数据集包括大约1500亿个令牌和620G的纯文本数据。   |                                |
 
 3.**多模态预训练语料（Corpus for pre-training ）**
 * 收集vLM的数据集
