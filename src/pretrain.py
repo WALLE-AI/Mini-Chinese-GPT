@@ -258,18 +258,39 @@ def main():
     print(f"-----------model_args.config_name----------:{model_args.config_name}")
     config = load_config(model_args.config_name)
     print(config)
+    out_dir = ""
     def init_model(config):
         if init_from == "scratch":
             # init a new model from scratch
             print("Initializing a new model from scratch")
             gptconf = ModelArgs(**config)
             model = Transformer(gptconf)
+        elif init_from =="resume":
+            print(f"Resuming training from {out_dir}")
+            # resume training from a checkpoint.
+            ckpt_path = os.path.join(out_dir, "ckpt.pt")
+            checkpoint = torch.load(ckpt_path, map_location=device)
+            ##模型参数可以从model_config文件获取
+            # checkpoint_model_args = checkpoint["model_args"]
+            # # force these config attributes to be equal otherwise we can't even resume training
+            # # the rest of the attributes (e.g. dropout) can stay as desired from command line
+            # for k in ["dim", "n_layers", "n_heads", "n_kv_heads", "vocab_size", "multiple_of", "max_seq_len"]:
+            #     model_args[k] = checkpoint_model_args[k]
+            # create the model
+            gptconf = ModelArgs(**model_args)
+            model = Transformer(gptconf)
+            state_dict = checkpoint["model"]
+            # fix the keys of the state dictionary :(
+            # honestly no idea how checkpoints sometimes get this prefix, have to debug more
+            unwanted_prefix = "_orig_mod."
+            for k, v in list(state_dict.items()):
+                if k.startswith(unwanted_prefix):
+                    state_dict[k[len(unwanted_prefix) :]] = state_dict.pop(k)
+            model.load_state_dict(state_dict)
+            # iter_num = checkpoint["iter_num"]
+            # best_val_loss = checkpoint["best_val_loss"]
         return model
     model=init_model(config)
-    
-    
-
-    
     model.to(device)
     model = torch.compile(model)
     ################
