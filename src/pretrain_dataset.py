@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split
 class PretrainDataset(Dataset):
     def __init__(self,data_path_lst,max_length=512,memmap=False):
         super().__init__()
-        #
+        #被这个参数害惨了
         if memmap:
             with open(data_path_lst[0],'r') as f:
                 nbytes = f.seek(0,2)
